@@ -1,4 +1,8 @@
+// To parse this JSON data, do
+//
+//     final newsModel = newsModelFromJson(jsonString?);
 
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
 NewsModel newsModelFromJson(String str) => NewsModel.fromJson(json.decode(str));
@@ -12,33 +16,21 @@ class NewsModel {
     required this.articles,
   });
 
-  final String status;
-  final int totalResults;
-  final List<Article> articles;
-
-  NewsModel copyWith({
-    required String status,
-    required int totalResults,
-    required List<Article> articles,
-  }) =>
-      NewsModel(
-        status: status,
-        totalResults: totalResults,
-        articles: articles,
-      );
+  final String? status;
+  final int? totalResults;
+  final List<Article>? articles;
 
   factory NewsModel.fromJson(Map<String, dynamic> json) => NewsModel(
-        status: json["status"],
-        totalResults: json["totalResults"],
-        articles: List<Article>.from(
-            json["articles"].map((x) => Article.fromJson(x))),
-      );
+    status: json["status"],
+    totalResults: json["totalResults"],
+    articles: List<Article>.from(json["articles"].map((x) => Article.fromJson(x))),
+  );
 
   Map<String, dynamic> toJson() => {
-        "status": status,
-        "totalResults": totalResults,
-        "articles": List<dynamic>.from(articles.map((x) => x.toJson())),
-      };
+    "status": status,
+    "totalResults": totalResults,
+    "articles": List<dynamic>.from(articles!.map((x) => x.toJson())),
+  };
 }
 
 class Article {
@@ -53,56 +45,36 @@ class Article {
     required this.content,
   });
 
-  final Source source;
-  final String author;
-  final String title;
-  final String description;
-  final String url;
-  final String urlToImage;
-  final DateTime publishedAt;
-  final String content;
-
-  Article copyWith({
-    required Source source,
-    required String author,
-    required String title,
-    required String description,
-    required String url,
-    required String urlToImage,
-    required DateTime publishedAt,
-    required String content,
-  }) =>
-      Article(
-          source: source,
-          author: author,
-          title: title,
-          description: description,
-          url: url,
-          urlToImage: urlToImage,
-          publishedAt: publishedAt,
-          content: content);
+  final Source? source;
+  final String? author;
+  final String? title;
+  final String? description;
+  final String? url;
+  final String? urlToImage;
+  final DateTime? publishedAt;
+  final String? content;
 
   factory Article.fromJson(Map<String, dynamic> json) => Article(
-        source: Source.fromJson(json["source"]),
-        author: json["author"],
-        title: json["title"],
-        description: json["description"],
-        url: json["url"],
-        urlToImage: json["urlToImage"],
-        publishedAt: DateTime.parse(json["publishedAt"]),
-        content: json["content"],
-      );
+    source: Source.fromJson(json["source"]),
+    author: json["author"] == "" ? "" : json["author"],
+    title: json["title"],
+    description: json["description"],
+    url: json["url"],
+    urlToImage: json["urlToImage"] == null ? null : json["urlToImage"],
+    publishedAt: DateTime.parse(json["publishedAt"]),
+    content: json["content"] == null ? null : json["content"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "source": source.toJson(),
-        "author": author,
-        "title": title,
-        "description": description,
-        "url": url,
-        "urlToImage": urlToImage,
-        "publishedAt": publishedAt.toIso8601String(),
-        "content": content,
-      };
+    "source": source!.toJson(),
+    "author": author,
+    "title": title,
+    "description": description,
+    "url": url,
+    "urlToImage": urlToImage == null ? null : urlToImage,
+    "publishedAt": publishedAt!.toIso8601String(),
+    "content": content == null ? null : content,
+  };
 }
 
 class Source {
@@ -111,22 +83,16 @@ class Source {
     required this.name,
   });
 
-  final String id;
-  final String name;
-
-  Source copyWith({
-    required String id,
-    required String name,
-  }) =>
-      Source(id: id, name: name);
+  final String? id;
+  final String? name;
 
   factory Source.fromJson(Map<String, dynamic> json) => Source(
-        id: json["id"],
-        name: json["name"],
-      );
+    id: json["id"] == null ? null : json["id"],
+    name: json["name"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-      };
+    "id": id == null ? null : id,
+    "name": name,
+  };
 }

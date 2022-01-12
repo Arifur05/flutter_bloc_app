@@ -11,11 +11,14 @@ class LoadingState extends HomeState{
   // TODO: implement props
   List<Object> get props => [];
 
+
 }
 class LoadedState extends HomeState{
-  late NewsModel newsmodel;
+
+  LoadedState(this.news);
+  late NewsModel news;
   @override
   // TODO: implement props
-  List<Object> get props => [newsmodel];
+  List<Object> get props => [news];
 
 }

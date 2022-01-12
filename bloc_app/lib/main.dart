@@ -3,6 +3,9 @@ import 'package:bloc_app/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'api.dart';
+
+
 void main() {
   runApp(MyApp());
 }
@@ -20,7 +23,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: BlocProvider<HomeBloc>(
-        create: (context) => HomeBloc(),
+        create: (context) => HomeBloc(apiService: Api()),
         child: HomePage()
       )
     );

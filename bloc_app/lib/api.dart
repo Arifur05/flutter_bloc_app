@@ -12,7 +12,7 @@ class Api {
     print("$news");
     return news;
   }*/
- static Future<NewsModel> getNews() async {
+  Future<NewsModel> getNews() async {
     var response = await get(Uri.parse(Constants.news_url));
     print("print");
     print(response.body);
